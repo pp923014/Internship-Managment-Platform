@@ -1,0 +1,27 @@
+import React from "react";
+import Sidebar from "../../components/adminComponents/Sidebar";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import AddFeature from "../../components/adminComponents/AddFeatures";
+
+const Admin = () => {
+  return (
+    <div className="flex flex-row min-h-screen">
+      {/* Sidebar */}
+      <div className="w-full lg:w-64 bg-gray-800 text-white ">
+        <Sidebar />
+      </div>
+
+      {/* AddFeature */}
+      <div className="flex-1 bg-gray-100 p-4">
+        <AddFeature />
+      </div>
+    </div>
+  );
+};
+
+export default Admin;
