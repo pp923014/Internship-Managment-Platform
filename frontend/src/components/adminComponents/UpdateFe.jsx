@@ -1,17 +1,24 @@
 import React, { useState } from "react";
 import useAdminStore from "../../store/useAdminStore";
-const UpdateFe = () => { 
-   const { title, description, image, setTitle, setDescription, setImage,updateFeature } =
-      useAdminStore();
-      const handleSubmit = (e) => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append("title", title);
-        formData.append("description", description);
-        formData.append("image", image);
-        updateFeature(formData);
-      };
-    
+const UpdateFe = () => {
+  const {
+    title,
+    description,
+    image,
+    setTitle,
+    setDescription,
+    setImage,
+    updateFeature,
+  } = useAdminStore();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("image", image);
+    updateFeature(formData);
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">

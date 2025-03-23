@@ -1,22 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAdminStore from "../../store/useAdminStore";
 
 const FetchFeatures = () => {
-  const { features, fethFeatures, deleteFeature,updateFeature,featureId,setID } = useAdminStore();
+  const navigate = useNavigate();
+  const {
+    features,
+    fethFeatures,
+    deleteFeature,
+    updateFeature,
+    featureId,
+    setID,
+  } = useAdminStore();
 
   useEffect(() => {
     fethFeatures();
   }, [fethFeatures]);
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this feature?")) {
-      deleteFeature(id); 
+      deleteFeature(id);
     }
     window.location.reload();
   };
- const handleupdate=(id)=>{
-  setID(id);
- }
+  const handleupdate = (id) => {
+    navigate("/admin/update-features");
+  };
   return (
     <div className="bg-gray py-12">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -46,7 +54,7 @@ const FetchFeatures = () => {
                 >
                   Delete
                 </button>
-                <button 
+                <button
                   className="w-full bg-blue-500 text-white py-2 mt-2 px-4 rounded-md hover:bg-red-600 transition-colors duration-300"
                   onClick={() => handleupdate(feature._id)}
                 >

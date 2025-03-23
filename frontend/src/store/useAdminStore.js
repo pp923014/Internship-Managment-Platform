@@ -37,20 +37,7 @@ export const useAdminStore = create((set, get) => ({
 
   updateFeature: async (data) => {
     try {
-      const featureId = get().featureId; // Get featureId from the state
-      if (!featureId) {
-        throw new Error("Feature ID is missing");
-      }
-      const res = await axiosInstance.put(`/features/${featureId}`, data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      toast.success("Feature updated successfully");
-      // get().fethFeatures(); // Refresh the features list after update
-    } catch (error) {
-      toast.error(error.response?.data?.message || "An error occurred");
-    }
+    } catch (error) {}
   },
 
   addInternships: async (data) => {
@@ -85,13 +72,12 @@ export const useAdminStore = create((set, get) => ({
     } finally {
     }
   },
-  featureId:null,
+
   title: "",
   description: "",
   image: null,
   setTitle: (title) => set({ title }),
   setDescription: (description) => set({ description }),
   setImage: (image) => set({ image }),
-  setID: (id) => set({ featureId:id }),
 }));
 export default useAdminStore;
