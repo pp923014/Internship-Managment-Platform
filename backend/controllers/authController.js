@@ -29,7 +29,7 @@ const register = async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      isAdmin: false, // ✅ Ensure this field exists
+      isAdmin: false, //  Ensure this field exists
     });
 
     // Save the user before generating the token

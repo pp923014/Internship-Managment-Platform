@@ -3,14 +3,13 @@ import { useNavigate } from "react-router-dom";
 import useAdminStore from "../../store/useAdminStore";
 
 const FetchFeatures = () => {
+  const[feId,setFeId]=useState(null);
   const navigate = useNavigate();
   const {
     features,
     fethFeatures,
     deleteFeature,
-    updateFeature,
-    featureId,
-    setID,
+    setFeatureId,
   } = useAdminStore();
 
   useEffect(() => {
@@ -19,10 +18,12 @@ const FetchFeatures = () => {
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this feature?")) {
       deleteFeature(id);
+     
     }
     window.location.reload();
   };
   const handleupdate = (id) => {
+    setFeatureId(id);
     navigate("/admin/update-features");
   };
   return (
@@ -43,11 +44,6 @@ const FetchFeatures = () => {
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
                 <p className="text-gray-600">{feature.description}</p>
-                <p className="text-gray-600">
-                  <b>id:</b>
-                  {feature._id}
-                </p>
-                {/* <p className="text-gray-600">{feature._id}</p> */}
                 <button
                   className="w-full bg-red-500 text-white py-2 mt-2 px-4 rounded-md hover:bg-red-600 transition-colors duration-300"
                   onClick={() => handleDelete(feature._id)}
@@ -56,7 +52,10 @@ const FetchFeatures = () => {
                 </button>
                 <button
                   className="w-full bg-blue-500 text-white py-2 mt-2 px-4 rounded-md hover:bg-red-600 transition-colors duration-300"
-                  onClick={() => handleupdate(feature._id)}
+                  onClick={() => {
+                    setFeId(feature._id);
+                    handleupdate(feature._id)
+                  }}
                 >
                   Update
                 </button>

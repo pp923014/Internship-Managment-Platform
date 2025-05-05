@@ -22,7 +22,7 @@ export const useAdminStore = create((set, get) => ({
       set({ features: Array.isArray(response.data) ? response.data : [] });
     } catch (error) {
       console.error("Error fetching items:", error);
-      set({ features: [] }); // ✅ Set to empty array on error
+      set({ features: [] }); //  Set to empty array on error
     }
   },
   deleteFeature: async (id) => {
@@ -34,10 +34,27 @@ export const useAdminStore = create((set, get) => ({
     } finally {
     }
   },
-
+  featureId: null, // To store the selected feature ID
+  setFeatureId: (id) => set({ featureId: id }), // Function to set the feature ID
   updateFeature: async (data) => {
+    const { featureId } = get(); // Get the stored featureId
+    if (!featureId) {
+      toast.error("No feature ID found");
+      return;
+    }
+
     try {
-    } catch (error) {}
+      const res = await axiosInstance.put(`/features/${featureId}`, data, {
+        headers: {
+          "Content-Type": "multipart/form-data", // For file uploads (if needed)
+        },
+      });
+      toast.success("Feature updated successfully");
+      return res.data; // Return the updated feature data
+    } catch (error) {
+      toast.error(error.response?.data?.message || "An error occurred");
+      throw error; // Re-throw the error for handling in the component
+    }
   },
 
   addInternships: async (data) => {
@@ -60,7 +77,7 @@ export const useAdminStore = create((set, get) => ({
       set({ internships: Array.isArray(response.data) ? response.data : [] });
     } catch (error) {
       console.error("Error fetching items:", error);
-      set({ internships: [] }); // ✅ Set to empty array on error
+      set({ internships: [] }); //  Set to empty array on error
     }
   },
   deleteInternship: async (id) => {

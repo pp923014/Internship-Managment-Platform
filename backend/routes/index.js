@@ -2,7 +2,7 @@ const express = require("express");
 const authRoutes = require("./authRoutes");
 const featureRoutes = require("./featureRoutes");
 const internshipRoutes = require("./internshipRoutes");
-const certificateRoutes = require("./certificateRoutes");
+// const certificateRoutes = require("./certificateRoutes");
 const applyIntern=require('./applyInternsRoutes');
 const router = express.Router();
 

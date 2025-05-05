@@ -7,8 +7,8 @@ const createFeature = async (req, res) => {
     data: req.file.buffer,
     contentType: req.file.mimetype,
   };
-  try { 
-    const feature = new Feature({ title, description,image });
+  try {
+    const feature = new Feature({ title, description, image });
     await feature.save();
     res.status(201).json({ message: "Feature created successfully", feature });
   } catch (error) {
@@ -20,11 +20,13 @@ const createFeature = async (req, res) => {
 const getAllFeatures = async (req, res) => {
   try {
     const features = await Feature.find();
-    const featuresWithImageUrl=features.map((feature)=>({
+    const featuresWithImageUrl = features.map((feature) => ({
       ...feature._doc,
-      image:`data:${feature.image.contentType};base64,${feature.image.data.toString('base64')}`,
-    }))
-    res.status(200).json( featuresWithImageUrl );
+      image: `data:${
+        feature.image.contentType
+      };base64,${feature.image.data.toString("base64")}`,
+    }));
+    res.status(200).json(featuresWithImageUrl);
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
   }
@@ -51,7 +53,7 @@ const updateFeature = async (req, res) => {
     const featureId = req.params.id;
     const updateData = {
       title: req.body.title,
-      description: req.body.description
+      description: req.body.description,
     };
 
     // If a new image is uploaded, update the image path
@@ -67,7 +69,7 @@ const updateFeature = async (req, res) => {
     );
 
     if (!updatedFeature) {
-      return res.status(404).json({ message: 'Feature not found' });
+      return res.status(404).json({ message: "Feature not found" });
     }
 
     res.status(200).json(updatedFeature);
@@ -75,8 +77,6 @@ const updateFeature = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
-
 
 // Delete a feature
 const deleteFeature = async (req, res) => {
@@ -93,4 +93,10 @@ const deleteFeature = async (req, res) => {
   }
 };
 
-module.exports = { createFeature, getAllFeatures, getFeatureById, updateFeature, deleteFeature };
+module.exports = {
+  createFeature,
+  getAllFeatures,
+  getFeatureById,
+  updateFeature,
+  deleteFeature,
+};

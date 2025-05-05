@@ -10,7 +10,7 @@ const useHomeStore = create((set, get) => ({
       set({ features: Array.isArray(response.data) ? response.data : [] });
     } catch (error) {
       console.error("Error fetching items:", error);
-      set({ features: [] }); // ✅ Set to empty array on error
+      set({ features: [] }); //  Set to empty array on error
     }
   },
   title: "",
@@ -34,7 +34,7 @@ const useHomeStore = create((set, get) => ({
         set({ trainee: response.data.intern, loading: false, error: null });
         console.log("Trainee State Updated:", response.data.intern); // Check this log
       } else {
-        set({ error: response.data.message, trainee: null, loading: false }); // ✅ Shows "No trainee found"
+        set({ error: response.data.message, trainee: null, loading: false }); // Shows "No trainee found"
       }
     } catch (error) {
       console.error(error);
